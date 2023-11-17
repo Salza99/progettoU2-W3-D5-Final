@@ -1,5 +1,6 @@
 package davideSalzani.progettoU2W3D5Final.Users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import davideSalzani.progettoU2W3D5Final.events.Event;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class User {
     private String password;
     private Role ruolo;
     @ManyToMany
+    @JsonIgnore
     private List<Event> prenotazioni;
     @CreationTimestamp
     private LocalDate createdAt;

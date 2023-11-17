@@ -26,5 +26,5 @@ public class Event {
     private int numeroMassimoPartecipanti;
     @ManyToMany()
     private List<User> partecipanti;
-
+    private Disponibilita disponibilita;
 }
