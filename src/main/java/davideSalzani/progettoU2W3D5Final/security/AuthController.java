@@ -3,6 +3,7 @@ package davideSalzani.progettoU2W3D5Final.security;
 import davideSalzani.progettoU2W3D5Final.Users.User;
 import davideSalzani.progettoU2W3D5Final.Users.UserService;
 import davideSalzani.progettoU2W3D5Final.exceptions.BadRequestException;
+import davideSalzani.progettoU2W3D5Final.security.securityDTO.NewOrganizzatoreDTO;
 import davideSalzani.progettoU2W3D5Final.security.securityDTO.NewUserDTO;
 import davideSalzani.progettoU2W3D5Final.security.securityDTO.UserLoginDTO;
 import davideSalzani.progettoU2W3D5Final.security.securityDTO.UserLoginSuccessDTO;
@@ -39,5 +40,18 @@ public class AuthController {
             throw new BadRequestException(validation.getAllErrors());
         }
         return new UserLoginSuccessDTO(authService.authenticateUser(body));
+    }
+    @PostMapping("/register/organizzatore")
+    @ResponseStatus(HttpStatus.CREATED) // <-- 201
+    public User saveAdmin(@RequestBody @Validated NewOrganizzatoreDTO body, BindingResult validation){
+        if(validation.hasErrors()){
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            try {
+                return usersService.save(body);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
