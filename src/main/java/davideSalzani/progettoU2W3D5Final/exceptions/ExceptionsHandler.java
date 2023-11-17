@@ -48,7 +48,12 @@ public class ExceptionsHandler {
     }
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN) // 403
-    public ErrorsPayloadDTO handleAccessDenied(AccessDeniedException e){
-        return new ErrorsPayloadDTO(e.getMessage(), LocalDate.now());
+    public ErrorsPayloadDTO handleAccessDenied(AccessDeniedException ex){
+        return new ErrorsPayloadDTO(ex.getMessage(), LocalDate.now());
+    }
+    @ExceptionHandler(EventCompleteException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorsPayloadDTO handleEventCompleteException(EventCompleteException ex){
+        return new ErrorsPayloadDTO(ex.getMessage(), LocalDate.now());
     }
 }

@@ -23,5 +23,9 @@ public class EventController {
             throw new BadRequestException(validation.getAllErrors());
         }else return eventService.save(body);
     }
-
+    @PatchMapping("{userId}/{eventId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Event addPartecipazione(@PathVariable("userId") long userId, @PathVariable("eventId") long eventId){
+        return eventService.addPartecipazione(userId, eventId);
+    }
 }

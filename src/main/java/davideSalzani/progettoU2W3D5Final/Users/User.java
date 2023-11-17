@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class User implements UserDetails {
     private Role ruolo;
     @ManyToMany
     @JsonIgnore
-    private List<Event> prenotazioni;
+    private List<Event> prenotazioni = new ArrayList<>();
     @CreationTimestamp
     private LocalDate createdAt;
 
