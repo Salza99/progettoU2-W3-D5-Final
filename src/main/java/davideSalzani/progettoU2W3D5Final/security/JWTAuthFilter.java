@@ -41,7 +41,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             User currentUser = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User"));
 
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, currentUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

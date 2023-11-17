@@ -3,12 +3,14 @@ package davideSalzani.progettoU2W3D5Final.exceptions;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestControllerAdvice
@@ -43,5 +45,10 @@ public class ExceptionsHandler {
     public ErrorsPayloadDTO handleGenericException(Exception ex){
         ex.printStackTrace();
         return new ErrorsPayloadDTO("errore lato server!", LocalDate.now());
+    }
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN) // 403
+    public ErrorsPayloadDTO handleAccessDenied(AccessDeniedException e){
+        return new ErrorsPayloadDTO(e.getMessage(), LocalDate.now());
     }
 }

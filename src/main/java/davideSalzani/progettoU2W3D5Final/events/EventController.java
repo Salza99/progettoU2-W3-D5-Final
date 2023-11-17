@@ -1,4 +1,27 @@
 package davideSalzani.progettoU2W3D5Final.events;
 
+import davideSalzani.progettoU2W3D5Final.events.eventiDTO.NewEventDTO;
+import davideSalzani.progettoU2W3D5Final.exceptions.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/events")
 public class EventController {
+    @Autowired
+    EventService eventService;
+
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
+    public Event createEvent(@RequestBody @Validated NewEventDTO body, BindingResult validation){
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }else return eventService.save(body);
+    }
+
 }

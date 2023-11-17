@@ -1,5 +1,6 @@
 package davideSalzani.progettoU2W3D5Final.security;
 
+import davideSalzani.progettoU2W3D5Final.exceptions.ExceptionsHandlerFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     @Autowired
     JWTAuthFilter jwtAuthFilter;
+    @Autowired
+    ExceptionsHandlerFilter exceptionsHandlerFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -27,9 +30,9 @@ public class SecurityConfig {
 
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(exceptionsHandlerFilter, JWTAuthFilter.class);
 
-
-        http.authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll());
+        http.authorizeHttpRequests(request -> request.requestMatchers("/create").hasAuthority("ORGANIZZATORE").anyRequest().permitAll());
         return http.build();
     }
     @Bean

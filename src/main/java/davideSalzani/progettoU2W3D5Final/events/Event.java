@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,7 @@ public class Event {
     private String luogo;
     private int numeroMassimoPartecipanti;
     @ManyToMany()
-    private List<User> partecipanti;
+    private List<User> partecipanti= new ArrayList<>();
+    @Enumerated(EnumType.STRING)
     private Disponibilita disponibilita;
 }
