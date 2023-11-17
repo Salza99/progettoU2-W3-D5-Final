@@ -29,4 +29,5 @@ public class Event {
     private List<User> partecipanti= new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Disponibilita disponibilita;
+    private String UrlImage;
 }
