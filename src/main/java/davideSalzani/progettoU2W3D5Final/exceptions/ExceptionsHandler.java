@@ -28,4 +28,20 @@ public class ExceptionsHandler {
     public ErrorsPayloadDTO handleNotFoundException(NotFoundException ex){
         return new ErrorsPayloadDTO(ex.getMessage(), LocalDate.now());
     }
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorsPayloadDTO handleUnauthorized(UnauthorizedException e){
+        return new ErrorsPayloadDTO(e.getMessage(), LocalDate.now());
+    }
+    @ExceptionHandler(AlreadyExistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorsPayloadDTO handleAlreadyExistException(AlreadyExistException ex){
+        return new ErrorsPayloadDTO(ex.getMessage(), LocalDate.now());
+    }
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorsPayloadDTO handleGenericException(Exception ex){
+        ex.printStackTrace();
+        return new ErrorsPayloadDTO("errore lato server!", LocalDate.now());
+    }
 }
